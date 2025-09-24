@@ -55,16 +55,6 @@
 - 🔍 Will spend hours on tiny UI details others won't notice
 - 💡 Just here to vibe and learn
 
-## 📫 Say hi!
-
-<div align="center">
-  
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ian20040409)
-
-</div>
-
----
-
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=ian20040409&color=blueviolet&style=flat-square&label=Profile+Views" alt="Profile Views" />
 </div>

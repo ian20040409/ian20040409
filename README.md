@@ -50,7 +50,6 @@
 - 📱 Making random iOS apps when I'm bored
 - 🔧 Building small tools that I might actually use
 - 🎨 Obsessing over spacing and alignment
-- 📚 Learning stuff from YouTube and Stack Overflow
 - ☕ Coding with music in the background
 
 ## 🌟 Real talk

@@ -1,8 +1,9 @@
 # 👋 Hi there, I'm Ian
-
+[My website](https://tinyurl.com/5fwjen4y)
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00D8FF&center=true&vCenter=true&width=435&lines=Welcome+to+my+GitHub!;Vibe+Coding;UI+Perfectionist;Learni[...]">
 </div>
+
 
 ## 🚀 About Me
 
@@ -62,3 +63,4 @@
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=ian20040409&color=blueviolet&style=flat-square&label=Profile+Views" alt="Profile Views" />
 </div>
+

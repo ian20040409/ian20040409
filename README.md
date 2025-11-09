@@ -1,5 +1,5 @@
 # 👋 Hi there, I'm Ian
-[My website](linnu.dpdns.org)
+[My website](https://linnu.dpdns.org)
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00D8FF&center=true&vCenter=true&width=435&lines=Welcome!;Vibe+Coding;UI+Perfectionist;Learni[...]">
 </div>

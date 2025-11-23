@@ -1,66 +1,65 @@
-# 👋 Hi there, I'm Ian
-[My website](https://linnu.dpdns.org)
-<div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00D8FF&center=true&vCenter=true&width=435&lines=Welcome!;Vibe+Coding;UI+Perfectionist;Learni[...]">
-</div>
-
-
-## 🚀 About Me
-
-- 🌍 Based in Taiwan 🇹🇼
-- 📱 Learning iOS development with Swift
-- 🐍 Playing around with Python
-- 🎨 Simple aesthetics with obsessive attention to details
-- 💻 Just coding for fun and vibes
-- 🎯 Learning new stuff when I feel like it
-
-
-
-## 🛠️ What I mess around with
-
 <div align="center">
 
-### Languages I'm learning
-![Swift](https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=28&pause=1000&color=6A5ACD&center=true&vCenter=true&width=435&lines=Ian.;UI+Perfectionist.;Vibe+Coding.;Swift+%2B+Python.">
 
-### Tools I use
+### Just coding for fun and vibes 🇹🇼
 
-![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=xcode&logoColor=white)
-![LineageOS](https://img.shields.io/badge/LineageOS-167C80?style=for-the-badge&logo=lineageos&logoColor=white)
-![F-Droid](https://img.shields.io/badge/F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)
-![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
-![Perplexity](https://img.shields.io/badge/Perplexity-000000?style=for-the-badge&logo=perplexity&logoColor=white)
-![Termius](https://img.shields.io/badge/Termius-19A974?style=for-the-badge&logo=termius&logoColor=white)
+<a href="https://linnu.dpdns.org">
+  <img src="https://img.shields.io/badge/Visit_My_Website-2ea44f?style=for-the-badge&logo=google-chrome&logoColor=white" />
+</a>
 
 </div>
 
-## 📊 GitHub Stats
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top" style="border: none;">
+
+### 🧑‍💻 The "Real Talk"
+
+- **Philosophy**: I definitely chat with AI for solutions 🤷‍♂️
+- **Aesthetic**: Will spend hours on tiny UI details others won't notice 🔍
+- **Music**: Can't code without it 🎵
+- **Status**: Learning new stuff when I feel like it.
+
+### 🛠️ Arsenal
+
+**Languages**
+<br>
+<img src="https://img.shields.io/badge/Swift-FA7343?style=flat-square&logo=swift&logoColor=white" />
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+
+**Tools & Environment**
+<br>
+<img src="https://img.shields.io/badge/Xcode-1575F9?style=flat-square&logo=xcode&logoColor=white" />
+<img src="https://img.shields.io/badge/Termius-19A974?style=flat-square&logo=termius&logoColor=white" />
+<img src="https://img.shields.io/badge/Perplexity-000000?style=flat-square&logo=perplexity&logoColor=white" />
+
+</td>
+
+<td width="50%" valign="top" style="border: none;">
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=ian20040409&show_icons=true&theme=radical&hide_border=true" alt="GitHub Stats" />
+
+<img src="https://github-readme-stats.vercel.app/api?username=ian20040409&show_icons=true&theme=radical&hide_border=true&bg_color=0d1117" />
+<br/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ian20040409&layout=compact&theme=radical&hide_border=true&bg_color=0d1117" />
+
 </div>
+
+</td>
+</tr>
+</table>
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ian20040409&layout=compact&theme=radical&hide_border=true" alt="Top Languages" />
+
+### 🎯 What I'm up to
+`📱 Making random iOS apps` • `🔧 Building tools I might use` • `🎨 Obsessing over spacing`
+
+<br>
+
+<img src="https://komarev.com/ghpvc/?username=ian20040409&color=blueviolet&style=flat-square&label=VISITORS" />
+
 </div>
-
-## 🎯 What I'm up to
-
-- 📱 Making random iOS apps when I'm bored
-- 🔧 Building small tools that I might actually use
-- 🎨 Obsessing over spacing and alignment
-- ☕ Coding with music in the background
-
-## 🌟 Real talk
-
-- 🤷‍♂️ I chat with AI for most of my solutions
-- 🎵 Code better with good music
-- 🔍 Will spend hours on tiny UI details others won't notice
-- 💡 Just here to vibe and learn
-
-<div align="center">
-  <img src="https://komarev.com/ghpvc/?username=ian20040409&color=blueviolet&style=flat-square&label=Profile+Views" alt="Profile Views" />
-</div>
-

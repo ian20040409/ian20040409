@@ -1,0 +1,413 @@
+<!-- Chosen Palette: Energetic & Playful (Teal, Amber, Rose, Indigo) -->
+<!-- Application Structure Plan: The SPA is structured as a single-page interactive dashboard. It begins with a high-level executive summary (KPI cards) to immediately communicate scale. This is followed by a dual-column layout comparing macro budget trends with micro station-level distribution. A dedicated section highlights specific mechanical and land improvement achievements. Finally, an interactive section allows users to explore "Open Contracts" (開口合約) by station, transforming static spreadsheet lists into an explorable operational readiness matrix. This structure guides the user from macro-financials down to specific operational details. -->
+<!-- Visualization & Content Choices: 1) KPIs -> Inform -> Styled HTML Cards with Unicode Icons -> Immediate impact of key metrics. 2) 114 vs 115 Budget -> Compare -> Grouped Bar Chart (Chart.js) -> Clear visual discrepancy between normal budget and disaster-impacted actuals. 3) Station Expenses -> Compare/Composition -> Doughnut Chart (Chart.js) -> Shows which stations consume the most resources. 4) Mechanical Highlights -> Compare -> Horizontal Bar Chart (Chart.js) -> Ranks specific high-cost repairs for readability. 5) Contract Readiness -> Organize/Filter -> Interactive HTML Table (Vanilla JS) -> Allows users to see disaster preparedness per station. NO SVG or Mermaid used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>114-115年度農田水利設施維護工程成效儀表板</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e293b;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            font-size: 24px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="p-4 md:p-8 selection:bg-teal-200 selection:text-teal-900">
+
+    <div class="max-w-7xl mx-auto">
+        
+        <header class="mb-10 animate-fade-in">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-l-8 border-teal-500 pl-6 py-2 bg-white rounded-r-xl shadow-sm">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-slate-800 tracking-tight mb-2">農田水利設施維護與災防整備分析</h1>
+                    <h2 class="text-xl text-teal-600 font-medium">114-115年度 執行概況與成效數據儀表板</h2>
+                </div>
+                <div class="mt-4 md:mt-0 px-6 py-2 bg-slate-50 rounded-lg text-sm text-slate-500 border border-slate-200">
+                    <p>資料來源：各站維護工程明細表</p>
+                    <p>涵蓋範圍：臺東、關山、池上等九大工作站</p>
+                </div>
+            </div>
+            <p class="mt-6 text-slate-600 max-w-4xl text-lg leading-relaxed">
+                本儀表板彙整分析年度預算、土地改良、機械設備修護及開口合約之執行情形。從數據中可觀察出 <span class="font-bold text-rose-500">114年度受颱風豪雨嚴重影響</span>，災搶工程導致經費超支；而 <span class="font-bold text-teal-600">115年度則回歸防汛整備與自動化升級</span>，全面提升農田水利韌性。
+            </p>
+        </header>
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center"><span class="text-2xl mr-2">📊</span> 核心績效指標 (KPIs)</h3>
+            <p class="text-slate-600 mb-6">以下數據呈現維護工程的整體規模。從龐大的除草面積與浚渫土方量，可見日常維護與災後復建的龐大業務量。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 border-t-4 border-t-teal-500">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-box bg-teal-100 text-teal-600 mr-4">💰</div>
+                        <h4 class="text-slate-500 font-semibold">年度常態總預算</h4>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-800">3,300 <span class="text-lg font-normal text-slate-500">萬元/年</span></p>
+                    <p class="text-sm text-teal-600 mt-2">114與115年編列基準</p>
+                </div>
+                
+                <div class="glass-card p-6 border-t-4 border-t-rose-500">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-box bg-rose-100 text-rose-600 mr-4">⚠️</div>
+                        <h4 class="text-slate-500 font-semibold">114年總執行(含災搶)</h4>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-800">8,900 <span class="text-lg font-normal text-slate-500">萬元</span></p>
+                    <p class="text-sm text-rose-600 mt-2">共計 471 件維護案</p>
+                </div>
+
+                <div class="glass-card p-6 border-t-4 border-t-amber-500">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-box bg-amber-100 text-amber-600 mr-4">🌿</div>
+                        <h4 class="text-slate-500 font-semibold">渠道除草總面積 (114年)</h4>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-800">151.1 <span class="text-lg font-normal text-slate-500">萬 ㎡</span></p>
+                    <p class="text-sm text-amber-600 mt-2">維持水路暢通關鍵</p>
+                </div>
+
+                <div class="glass-card p-6 border-t-4 border-t-indigo-500">
+                    <div class="flex items-center mb-4">
+                        <div class="icon-box bg-indigo-100 text-indigo-600 mr-4">🚜</div>
+                        <h4 class="text-slate-500 font-semibold">清淤土方總量 (114年)</h4>
+                    </div>
+                    <p class="text-3xl font-bold text-slate-800">2.98 <span class="text-lg font-normal text-slate-500">萬 m³</span></p>
+                    <p class="text-sm text-indigo-600 mt-2">浚渫長度達 68,808 公尺</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">年度預算 vs 實際執行對比</h3>
+                <p class="text-sm text-slate-600 mb-6">114年度因多次颱風災害（如知本、美和圳進水口搶修），實際支出大幅超出編列預算。115年度目前仍處於初期發包與例行維護階段，控管得宜。</p>
+                <div class="chart-container">
+                    <canvas id="budgetComparisonChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">114年度 各工作站經費耗用佔比</h3>
+                <p class="text-sm text-slate-600 mb-6">關山、臺東與池上三個工作站，由於轄區廣泛且受災程度深，囊括了超過一半的整體維護經費。圖表展示各站資源分配的重量級。</p>
+                <div class="chart-container">
+                    <canvas id="stationDistributionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="glass-card p-6">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2 flex items-center"><span class="text-2xl mr-2">⚙️</span> 重大機電與改良物修護指標</h3>
+                <p class="text-sm text-slate-600 mb-6">除了一般土木維修，自動化與機電設備的妥善率是現代化水利管理的命脈。以下列出具代表性的高單價機電搶修與升級項目。</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 chart-container">
+                        <canvas id="mechanicalHighlightsChart"></canvas>
+                    </div>
+                    
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 flex flex-col justify-center">
+                        <h4 class="text-lg font-bold text-indigo-700 mb-4 border-b border-indigo-200 pb-2">機電整備與智慧升級重點</h4>
+                        <ul class="space-y-4">
+                            <li class="flex">
+                                <span class="text-xl mr-3">🔌</span>
+                                <div>
+                                    <strong class="block text-slate-800">臺東站石山圳水門</strong>
+                                    <span class="text-sm text-slate-600">第一及第二進水口電動吊門機全面檢修，預算41萬元，保障取水穩定。</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="text-xl mr-3">📡</span>
+                                <div>
+                                    <strong class="block text-slate-800">全區自動測報系統</strong>
+                                    <span class="text-sm text-slate-600">面臨天災受損，114年啟動多筆10-28萬級別的緊急搶修，確保數據不中斷。</span>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="text-xl mr-3">💻</span>
+                                <div>
+                                    <strong class="block text-slate-800">智慧灌溉後端升級</strong>
+                                    <span class="text-sm text-slate-600">管理組添購平台業務用設備，強化數據運算與決策輔助能力。</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold text-slate-800 mb-4 flex items-center"><span class="text-2xl mr-2">📋</span> 各站開口合約整備矩陣</h3>
+            <p class="text-slate-600 mb-6">「開口合約」是應對突發災害的第一道防線。本區塊整理了各站點針對不同維護類型的合約涵蓋狀況。您可透過下方選單篩選特定工作站的合約整備情形。</p>
+            
+            <div class="glass-card p-6">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <label for="stationFilter" class="font-semibold text-slate-700 mr-4 mb-2 sm:mb-0">過濾工作站：</label>
+                    <select id="stationFilter" class="px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 w-full sm:w-auto">
+                        <option value="all">顯示所有工作站</option>
+                        <option value="臺東">臺東站 / 卑南站 / 知本站</option>
+                        <option value="池上">池上站 / 關山站 / 鹿野站</option>
+                        <option value="東河">東河站 / 成功站 / 長濱站</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700">
+                                <th class="p-4 font-semibold border-b-2 border-slate-200 rounded-tl-lg">合約專案類別</th>
+                                <th class="p-4 font-semibold border-b-2 border-slate-200 filter-col col-臺東">臺東 / 卑南 / 知本</th>
+                                <th class="p-4 font-semibold border-b-2 border-slate-200 filter-col col-池上">池上 / 關山 / 鹿野</th>
+                                <th class="p-4 font-semibold border-b-2 border-slate-200 rounded-tr-lg filter-col col-東河">東河 / 成功 / 長濱</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contractTableBody">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-medium text-slate-800">緊急搶修及一般維護</td>
+                                <td class="p-4 filter-col col-臺東"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">✔️ 全面部署</span></td>
+                                <td class="p-4 filter-col col-池上"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">✔️ 涵蓋浚渫</span></td>
+                                <td class="p-4 filter-col col-東河"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800">✔️ 設施搶修</span></td>
+                            </tr>
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-medium text-slate-800">颱風豪雨災害加強取水</td>
+                                <td class="p-4 filter-col col-臺東"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">⚠️ 易災點重點防範</span></td>
+                                <td class="p-4 filter-col col-池上"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800">⚠️ 易災點重點防範</span></td>
+                                <td class="p-4 filter-col col-東河"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">依一般維護機制辦理</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-medium text-slate-800 rounded-bl-lg">除草伐木與綠美化</td>
+                                <td class="p-4 filter-col col-臺東"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">✔️ 站區環境整潔</span></td>
+                                <td class="p-4 filter-col col-池上"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">✔️ 水利公園維護</span></td>
+                                <td class="p-4 filter-col col-東河"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">⏳ 專案結案待發包</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Data processing for Chart.js label wrapping (Max 16 chars per line)
+        const wrapLabels = (labels, maxLength = 16) => {
+            return labels.map(text => {
+                if (typeof text !== 'string') return text;
+                if (text.length <= maxLength) return text;
+                
+                let lines = [];
+                let words = text.split(''); // Splitting by char for Chinese, or could use word boundaries
+                let currentLine = '';
+                
+                for (let i = 0; i < words.length; i++) {
+                    if (currentLine.length >= maxLength) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    } else {
+                        currentLine += words[i];
+                    }
+                }
+                if (currentLine) {
+                    lines.push(currentLine);
+                }
+                return lines;
+            });
+        };
+
+        // Common tooltip config for array labels
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(''); // Join without space for Chinese
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Budget Comparison
+        const ctxBudget = document.getElementById('budgetComparisonChart').getContext('2d');
+        new Chart(ctxBudget, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels(['114年度 (受災搶影響)', '115年度 (初期/常態)']),
+                datasets: [
+                    {
+                        label: '編列預算金額 (萬NTD)',
+                        data: [3300, 3300],
+                        backgroundColor: '#0ea5e9', // Sky blue
+                        borderRadius: 6
+                    },
+                    {
+                        label: '實際執行金額 (萬NTD)',
+                        data: [8900, 856],
+                        backgroundColor: '#f43f5e', // Rose
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        title: { display: true, text: '金額 (萬元)' }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Station Distribution
+        const ctxStation = document.getElementById('stationDistributionChart').getContext('2d');
+        new Chart(ctxStation, {
+            type: 'doughnut',
+            data: {
+                labels: wrapLabels(['關山站', '臺東站', '池上站', '卑南站', '知本站', '長濱站', '東河站', '成功站', '鹿野站']),
+                datasets: [{
+                    data: [1668, 1368, 863, 550, 420, 261, 238, 166, 310],
+                    backgroundColor: [
+                        '#f59e0b', // Amber
+                        '#0d9488', // Teal
+                        '#4f46e5', // Indigo
+                        '#e11d48', // Rose
+                        '#8b5cf6', // Purple
+                        '#0284c7', // Light Blue
+                        '#10b981', // Emerald
+                        '#f97316', // Orange
+                        '#64748b'  // Slate
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipConfig.callbacks.title,
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + ' 萬元';
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: { position: 'right' }
+                },
+                cutout: '55%'
+            }
+        });
+
+        // Chart 3: Mechanical Highlights
+        const ctxMech = document.getElementById('mechanicalHighlightsChart').getContext('2d');
+        new Chart(ctxMech, {
+            type: 'bar',
+            data: {
+                labels: wrapLabels([
+                    '臺東石山圳電動吊門機維修',
+                    '管理處自動測報搶修(0201)',
+                    '管理處自動測報搶修(0301)',
+                    '知本射馬干圳電控系統維護',
+                    '關山沉砂池吊門機配件',
+                    '卑南圳水閘電源箱修繕'
+                ], 16),
+                datasets: [{
+                    label: '專案核銷金額 (元)',
+                    data: [410000, 281439, 231343, 88318, 46452, 30345],
+                    backgroundColor: '#4f46e5', // Indigo
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { 
+                        beginAtZero: true,
+                        title: { display: true, text: '金額 (元)' }
+                    }
+                }
+            }
+        });
+
+        // Interactive Table Logic
+        document.getElementById('stationFilter').addEventListener('change', function(e) {
+            const selected = e.target.value;
+            const columns = ['col-臺東', 'col-池上', 'col-東河'];
+            
+            columns.forEach(colClass => {
+                const elements = document.querySelectorAll(`.${colClass}`);
+                elements.forEach(el => {
+                    if (selected === 'all' || colClass.includes(selected)) {
+                        el.style.display = 'table-cell'; // Or empty string to revert to default
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

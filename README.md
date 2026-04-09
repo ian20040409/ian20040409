@@ -20,14 +20,6 @@
 
 <div align="center">
 
-### 🛠️ Tech Stack
-
-![Swift](https://img.shields.io/badge/Swift-FA7343?style=flat-square&logo=swift&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=flat-square&logo=xcode&logoColor=white)
-![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=flat-square&logo=android-studio&logoColor=white)
-![LineageOS](https://img.shields.io/badge/LineageOS-167C80?style=flat-square&logo=lineageos&logoColor=white)
 
 ### 📊 GitHub Stats
 

@@ -14,7 +14,7 @@
 
 - 🌍 **Based in:** Taiwan 🇹🇼
 - 📱 **Focus:** iOS development (Swift) & Python 🐍
-- 🎨 **Style:** Simple aesthetics with obsessive attention to details
+- 🎨 **Style:** Clean and simple
 - 🧠 **Philosophy:** Just coding for fun, vibes, and learning new stuff
 - 🤝 **Real Talk:** I chat with AI for most solutions & code better with music 🎵
 

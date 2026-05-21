@@ -13,7 +13,7 @@
 </div>
 
 - 🌍 **Based in:** Taiwan 🇹🇼
-- 📱 **Focus:** iOS/Android APP development & Python 🐍
+- 📱 **Focus:** Mobile app development & Python 🐍
 - 🎨 **Style:** Clean and simple
 - 🧠 **Philosophy:** Just coding for fun, vibes, and learning new stuff
 - 🤝 **Real Talk:** I chat with AI for most solutions & code better with music 🎵

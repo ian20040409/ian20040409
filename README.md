@@ -1,4 +1,10 @@
 <div align="center">
+# 👋 Hi there, I'm Ian
+
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=00D8FF&center=true&vCenter=true&width=435&lines=Welcome!;Vibe+Coding;UI+Perfectionist;Learning+Swift+%26+Python;Just+for+fun+and+vibes)](https://git.io/typing-svg)
+
+[Website](https://linnu.dpdns.org)
+
 
 ### 🚀 About Me
 

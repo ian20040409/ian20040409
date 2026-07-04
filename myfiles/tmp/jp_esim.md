@@ -1,4 +1,5 @@
 # 日本 eSIM 討論總結
+https://youtu.be/2GQcLUoXBY0?si=5Fr0pZn8KK-1dn-x
 
 ## 你的需求
 - 日本旅遊 5 天，主要是關西行程

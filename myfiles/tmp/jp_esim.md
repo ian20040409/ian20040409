@@ -4,10 +4,10 @@ https://youtu.be/2GQcLUoXBY0?si=5Fr0pZn8KK-1dn-x
 https://firstpointw.com/japan-esim
 
 ## 你的需求
-<!-- 這是一段註解，不會顯示在畫面上 
+
 
 - 日本旅遊 5 天，主要是關西行程
-<!-- 這是一段註解，不會顯示在畫面上 -->
+
 
 - 手機有 `iPhone 16 Pro Max`、`Pixel 9 Pro`、`iPhone 13 Pro Max`
 - 重點需求：
@@ -18,13 +18,13 @@ https://firstpointw.com/japan-esim
   - 希望訊號穩定
   - 優先考慮日本原生線路
   - `iPhone 16 Pro Max` 和 `Pixel 9 Pro` 都希望能當熱點主機
-<!-- 這是一段註解，不會顯示在畫面上 
+
 
 ## 你排除的選項
 - `Klook`：你之前在 iPhone 上遇過熱點分享問題，所以不想優先考慮
 - `Ubigi`、`Airalo`、`Holafly`：你後來明確排除
 - 日本本地網站：你不考慮
-<!-- 這是一段註解，不會顯示在畫面上 -->
+
 
 ## 你看到的測速與論壇資訊
 - 你貼過一張 `2025/08/18` 的 speedtest 紀錄：
@@ -35,7 +35,7 @@ https://firstpointw.com/japan-esim
   - `DJB`、`中華電信漫遊`、`威訊 Waysin` 排名前段
   - 作者自己提到 `KKday 推出的原生 KDDI eSIM` 也表現不錯
   - `iVideo` 在那份投票中票數較少，但仍在名單內
-<!-- 這是一段註解，不會顯示在畫面上 
+
 
 ## 我們討論過的平台
 

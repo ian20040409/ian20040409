@@ -82,15 +82,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const nav = document.querySelector('.site-nav');
         if (!nav) return;
 
+        const mobileQuery = window.matchMedia('(max-width: 768px)');
         let lastScrollY = window.scrollY;
         let accumulatedDownScroll = 0;
         let isTicking = false;
 
-        const TOP_SAFE_ZONE = 250;       // Stay visible within top 250px
-        const HIDE_SCROLL_DISTANCE = 70; // Require 70px continuous downward scroll to hide
+        const TOP_SAFE_ZONE = 200;       // Stay visible within top 200px
+        const HIDE_SCROLL_DISTANCE = 60; // Require 60px continuous downward scroll to hide
         const SHOW_SCROLL_DISTANCE = 8;  // Require only 8px upward scroll to reveal
 
         function updateNavVisibility() {
+            // Navbar auto-hide only runs on mobile phones
+            if (!mobileQuery.matches) {
+                nav.classList.remove('is-hidden');
+                accumulatedDownScroll = 0;
+                lastScrollY = Math.max(window.scrollY, 0);
+                isTicking = false;
+                return;
+            }
+
             const currentScrollY = Math.max(window.scrollY, 0);
             const delta = currentScrollY - lastScrollY;
 
@@ -119,6 +129,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 isTicking = true;
             }
         }, { passive: true });
+
+        // Ensure nav is always visible when resizing to desktop
+        if (mobileQuery.addEventListener) {
+            mobileQuery.addEventListener('change', e => {
+                if (!e.matches) {
+                    nav.classList.remove('is-hidden');
+                    accumulatedDownScroll = 0;
+                }
+            });
+        }
     }
 });
 

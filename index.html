@@ -3,163 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ian (@ian20040409) - Personal Website</title>
+    <title>ian20040409 - Open Source Developer</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://github.com/ian20040409.png">
+    <link rel="apple-touch-icon" href="https://github.com/ian20040409.png">
+    
+    <!-- Anti-FOUC Theme Script: applies dark mode instantly before DOM render -->
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-bs-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+
     <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     
-    <!-- Favicon -->
-    <link rel="icon" href="https://github.com/ian20040409.png" type="image/png">
-    
     <!-- Meta Tags for GitHub Pages -->
-    <meta name="description" content="Ian's personal website - UI perfectionist, vibe coder, learning iOS development">
-    <meta name="author" content="Ian (@ian20040409)">
+    <meta name="description" content="ian20040409 的開源專案、跨平台應用與系統技術作品集">
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button class="btn btn-outline-dark position-fixed top-0 end-0 m-3 theme-toggle rounded-circle shadow-sm" onclick="toggleTheme()">
-        <i class="bi bi-moon-fill"></i>
-    </button>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-section py-5">
-        <div class="container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-8 mx-auto text-center">
-                    <div class="profile-img mb-4">
-                        <img src="https://github.com/ian20040409.png" alt="Ian" class="rounded-circle shadow animate__animated animate__fadeIn">
-                    </div>
-                    <h1 class="display-4 fw-bold mb-3 animate__animated animate__fadeInUp">👋 Hi there, I'm Ian</h1>
-                    <div class="typing-animation mb-4">
-                        <span id="typing-text"></span>
-                    </div>
-                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-                        Based in Taiwan<br>
-                        Simple aesthetics with obsessive attention to details
-                    </p>
-                   
-                </div>
-            </div>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a class="brand-mark" href="#home" aria-label="ian20040409 home">IAN<span>.</span></a>
+        <div class="nav-links">
+            <a href="#projects" aria-label="Browse projects">Projects</a>
+            <a href="https://github.com/ian20040409" target="_blank" rel="noopener" aria-label="Open GitHub profile" title="GitHub profile">
+                <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.71.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.59 2.35 1.13 2.92.86.09-.67.35-1.13.64-1.39-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 7.14c.85 0 1.71.12 2.51.36 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"/></svg>
+                GitHub
+            </a>
         </div>
-    </section>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+            <i class="bi bi-moon-fill" aria-hidden="true"></i>
+        </button>
+    </nav>
 
-    
-   
-    <!-- Projects Section -->
-    <section id="projects" class="py-5 bg-light">
+    <!-- GitHub-focused Hero Section with Integrated Contribution Activity -->
+    <section id="home" class="hero-section">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="text-center mb-5 fw-bold">🚀 Featured Projects</h2>
-                    
-                    <!-- Featured Projects (Your latest top repos) -->
-                    <div class="row mb-4">
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card repo-card shadow-sm h-100 border-0">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="https://github.com/ian20040409/Music-ChatBot-web-ui" target="_blank" class="text-decoration-none">
-                                            <i class="bi bi-music-note-beamed text-primary me-2"></i>Music-ChatBot-web-ui
-                                        </a>
-                                    </h5>
-                                    <p class="card-text text-muted">Interactive music chatbot with web interface</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><span class="language-dot language-javascript"></span>JavaScript</small>
-                                        <a href="https://github.com/ian20040409/Music-ChatBot-web-ui" class="btn btn-sm btn-outline-primary" target="_blank">
-                                            <i class="bi bi-github"></i> View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row align-items-center hero-grid">
+                <div class="col-12 hero-copy">
+                    <h1 class="hero-title">Mobile apps.<br><em>Python tools.</em></h1>
+                    <p class="lead">Build small tools. Code with music.</p>
+                    <div class="hero-stats" aria-label="GitHub activity">
+                        <div class="stat-box">
+                            <strong id="repo-stat">--</strong>
+                            <span>repositories</span>
                         </div>
-                        
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card repo-card shadow-sm h-100 border-0">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="https://github.com/ian20040409/LocalNetSpeed-swift" target="_blank" class="text-decoration-none">
-                                            <i class="bi bi-speedometer text-primary me-2"></i>LocalNetSpeed-swift
-                                        </a>
-                                    </h5>
-                                    <p class="card-text text-muted">Network speed monitoring tool built with Swift</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><span class="language-dot language-swift"></span>Swift</small>
-                                        <a href="https://github.com/ian20040409/LocalNetSpeed-swift" class="btn btn-sm btn-outline-primary" target="_blank">
-                                            <i class="bi bi-github"></i> View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="stat-box">
+                            <strong id="star-stat">--</strong>
+                            <span>stars</span>
                         </div>
-                        
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card repo-card shadow-sm h-100 border-0">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="https://github.com/ian20040409/local-net-speed-python" target="_blank" class="text-decoration-none">
-                                            <i class="bi bi-speedometer2 text-primary me-2"></i>local-net-speed-python
-                                        </a>
-                                    </h5>
-                                    <p class="card-text text-muted">Python version of network speed monitoring</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><span class="language-dot language-python"></span>Python</small>
-                                        <a href="https://github.com/ian20040409/local-net-speed-python" class="btn btn-sm btn-outline-primary" target="_blank">
-                                            <i class="bi bi-github"></i> View
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="stat-box">
+                            <strong id="language-stat">--</strong>
+                            <span>languages</span>
                         </div>
                     </div>
-                    
-                    <div class="text-center">
-                        <button class="btn btn-primary btn-lg" onclick="loadMoreRepositories()">
-                            <i class="bi bi-arrow-clockwise"></i> Load All Repositories
-                        </button>
+                    <div class="hero-actions">
+                        <a href="#featured" class="btn btn-primary">Explore projects <i class="bi bi-arrow-down-right"></i></a>
+                        <a href="https://github.com/ian20040409" target="_blank" rel="noopener" class="btn btn-outline-secondary">View GitHub <i class="bi bi-box-arrow-up-right"></i></a>
                     </div>
-                    
-                    <div id="repositories-container" class="row mt-4">
-                        <!-- Additional repositories will be loaded here -->
-                    </div>
-                    
-                    <div id="loading-spinner" class="text-center d-none">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                </div>
+
+                <!-- Integrated Contribution Graph in Hero -->
+                <div class="col-12 hero-contribution">
+                    <div class="contribution-card">
+                        <div class="contribution-header">
+                            <div>
+                                <p class="eyebrow mb-1">Open source activity</p>
+                                <h3 class="contribution-heading">Code in public, one commit at a time.</h3>
+                            </div>
+                            <a href="https://github.com/ian20040409" target="_blank" rel="noopener" class="contribution-github-link" title="Open GitHub profile">
+                                <svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.71.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.59 2.35 1.13 2.92.86.09-.67.35-1.13.64-1.39-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 7.14c.85 0 1.71.12 2.51.36 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"/></svg>
+                                <span>ian20040409</span>
+                            </a>
                         </div>
-                        <p class="mt-2">Loading repositories...</p>
+                        <div class="contribution-graph-wrapper">
+                            <img class="contribution-graph" id="contribution-graph-img" src="https://ghchart.rshah.org/0d9488/ian20040409" alt="ian20040409 GitHub contribution graph" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    
+    <main>
+        <!-- Selected Featured Projects -->
+        <section id="featured" class="featured-section" aria-labelledby="featured-title">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow mb-2">Selected work</p>
+                        <h2 id="featured-title">Projects worth opening</h2>
+                    </div>
+                </div>
+                <div class="featured-grid">
+                    <article class="featured-card">
+                        <span class="project-label">Mobile / Swift</span>
+                        <h3>Youtube-Decrypted-IPA-yt</h3>
+                        <p>針對 iOS 音樂使用情境的工具與 IPA 實驗。</p>
+                        <a href="https://github.com/ian20040409/Youtube-Decrypted-IPA-yt" target="_blank" rel="noopener">View repository <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                    <article class="featured-card">
+                        <span class="project-label">Python / Automation</span>
+                        <h3>fh6-afk</h3>
+                        <p>透過虛擬控制器與自動油門完成長時間掛機。</p>
+                        <a href="https://github.com/ian20040409/fh6-afk" target="_blank" rel="noopener">View repository <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                    <article class="featured-card">
+                        <span class="project-label">Web / Interface</span>
+                        <h3>NTTU_75SportsDay</h3>
+                        <p>為校園活動打造的實用網頁介面與資訊展示。</p>
+                        <a href="https://github.com/ian20040409/NTTU_75SportsDay" target="_blank" rel="noopener">View repository <i class="bi bi-arrow-up-right"></i></a>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-    
+        <!-- Combined Projects & Focus Filtering Section -->
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow mb-2">Browse by focus</p>
+                        <h2 id="projects-title">Explore by Domain & Technology</h2>
+                    </div>
+                    <span id="project-count" class="section-count">Loading repositories</span>
+                </div>
 
-    <!-- Contact Section -->
-   
+                <!-- 4 Category Filter Cards -->
+                <div class="capabilities-grid mb-4">
+                    <button class="capability-item category-filter is-active" type="button" data-category="all">
+                        <div class="capability-header">
+                            <span class="capability-number">01</span>
+                            <div class="capability-icon"><i class="bi bi-collection-fill" aria-hidden="true"></i></div>
+                        </div>
+                        <strong class="capability-title">All Projects</strong>
+                        <p class="capability-desc">完整瀏覽所有公開專案與工具作品</p>
+                        <div class="capability-tags">
+                            <span class="cap-tag">Overview</span>
+                            <span class="cap-tag">Open Source</span>
+                        </div>
+                    </button>
+
+                    <button class="capability-item category-filter" type="button" data-category="mobile">
+                        <div class="capability-header">
+                            <span class="capability-number">02</span>
+                            <div class="capability-icon"><i class="bi bi-phone-fill" aria-hidden="true"></i></div>
+                        </div>
+                        <strong class="capability-title">Mobile Apps</strong>
+                        <p class="capability-desc">iOS 原生應用、Android 與跨平台工具</p>
+                        <div class="capability-tags">
+                            <span class="cap-tag">Swift</span>
+                            <span class="cap-tag">Kotlin</span>
+                            <span class="cap-tag">Flutter</span>
+                        </div>
+                    </button>
+
+                    <button class="capability-item category-filter" type="button" data-category="python">
+                        <div class="capability-header">
+                            <span class="capability-number">03</span>
+                            <div class="capability-icon"><i class="bi bi-terminal-fill" aria-hidden="true"></i></div>
+                        </div>
+                        <strong class="capability-title">Python & Automation</strong>
+                        <p class="capability-desc">自動化腳本、機器人、掛機與效率工具</p>
+                        <div class="capability-tags">
+                            <span class="cap-tag">Automation</span>
+                            <span class="cap-tag">Bots</span>
+                            <span class="cap-tag">CLI Tools</span>
+                        </div>
+                    </button>
+
+                    <button class="capability-item category-filter" type="button" data-category="web">
+                        <div class="capability-header">
+                            <span class="capability-number">04</span>
+                            <div class="capability-icon"><i class="bi bi-cpu-fill" aria-hidden="true"></i></div>
+                        </div>
+                        <strong class="capability-title">Web & Systems</strong>
+                        <p class="capability-desc">互動網頁介面、系統架構與硬體實驗</p>
+                        <div class="capability-tags">
+                            <span class="cap-tag">Web UI</span>
+                            <span class="cap-tag">JavaScript</span>
+                            <span class="cap-tag">Hardware</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Search & Language Filter Toolbar -->
+                <div class="project-tools" role="search" aria-label="Filter projects">
+                    <label class="visually-hidden" for="project-search">Search projects</label>
+                    <input id="project-search" type="search" placeholder="Search projects by name or description..." autocomplete="off">
+                    <label class="visually-hidden" for="language-filter">Filter by language</label>
+                    <select id="language-filter">
+                        <option value="">All languages</option>
+                    </select>
+                    <button id="clear-filters" class="clear-filters" type="button" hidden>Clear filters</button>
+                </div>
+
+                <!-- Projects Dynamic Grid -->
+                <div id="projects-grid" class="row project-grid" aria-live="polite"></div>
+                <p id="projects-status" class="projects-status">Loading public repositories...</p>
+                <div class="text-center">
+                    <button id="show-more-projects" class="show-more-projects" type="button" hidden>Show all repositories</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="fixed-bottom text-center py-2 footer-blur">
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                     <a href="https://github.com/ian20040409" class="btn btn-dark" target="_blank">
-                            <i class="bi bi-github"></i> GitHub Profile
-                        </a>
+            <div class="footer-content">
+                <p class="footer-copy"><a href="https://github.com/ian20040409/ian20040409" target="_blank" rel="noopener" class="footer-repo-btn" aria-label="Open GitHub repository" title="ian20040409 repository"><svg class="github-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.36 6.84 9.71.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.59 2.35 1.13 2.92.86.09-.67.35-1.13.64-1.39-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 7.14c.85 0 1.71.12 2.51.36 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z"/></svg></a> · <span id="current-year"></span></p>
+                <div class="footer-links">
+                    <a href="#home">Back to top <i class="bi bi-arrow-up"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>

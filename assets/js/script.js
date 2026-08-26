@@ -199,18 +199,37 @@ const categoryLanguages = {
 async function initializeProjects() {
     const status = document.getElementById('projects-status');
     try {
-        const response = await fetch('https://api.github.com/users/ian20040409/repos?type=owner&sort=updated&per_page=100');
-        if (!response.ok) throw new Error('Unable to load projects');
+        const cacheKey = 'github_repos_cache';
+        const cacheTimeKey = 'github_repos_cache_time';
+        const cacheDuration = 3600000; // 1 hour in milliseconds
         
-        publicProjects = (await response.json()).filter(repo => !repo.fork && repo.name.toLowerCase() !== 'fork');
+        let reposData = null;
+        const cachedData = localStorage.getItem(cacheKey);
+        const cachedTime = localStorage.getItem(cacheTimeKey);
+        
+        if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < cacheDuration) {
+            reposData = JSON.parse(cachedData);
+        } else {
+            const response = await fetch('https://api.github.com/users/ian20040409/repos?type=owner&sort=updated&per_page=100');
+            if (!response.ok) throw new Error('Unable to load projects');
+            reposData = await response.json();
+            localStorage.setItem(cacheKey, JSON.stringify(reposData));
+            localStorage.setItem(cacheTimeKey, Date.now().toString());
+        }
+        
+        publicProjects = reposData.filter(repo => !repo.fork && repo.name.toLowerCase() !== 'fork');
         updateGitHubStats();
         initializeCategoryFilters();
         populateLanguageFilter();
         renderProjects();
     } catch (error) {
         if (status) {
-            status.textContent = 'Repositories could not be loaded right now. View all public repositories on GitHub.';
+            status.innerHTML = 'Repositories could not be loaded right now. <a href="https://github.com/ian20040409?tab=repositories" target="_blank" rel="noopener" class="text-accent" style="color: inherit; text-decoration: underline;">View all public repositories on GitHub.</a>';
             status.classList.add('is-error');
+        }
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) {
+            heroStats.style.display = 'none';
         }
     }
 }

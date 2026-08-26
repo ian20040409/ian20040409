@@ -1,3 +1,12 @@
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth Anchor Scrolling
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
@@ -198,39 +207,53 @@ const categoryLanguages = {
 
 async function initializeProjects() {
     const status = document.getElementById('projects-status');
+    const cacheKey = 'github_repos_cache';
+    const cacheTimeKey = 'github_repos_cache_time';
+    const cacheDuration = 3600000; // 1 hour in milliseconds
+    
+    let reposData = null;
+    const cachedData = localStorage.getItem(cacheKey);
+    const cachedTime = localStorage.getItem(cacheTimeKey);
+    const isCacheValid = cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < cacheDuration;
+
     try {
-        const cacheKey = 'github_repos_cache';
-        const cacheTimeKey = 'github_repos_cache_time';
-        const cacheDuration = 3600000; // 1 hour in milliseconds
-        
-        let reposData = null;
-        const cachedData = localStorage.getItem(cacheKey);
-        const cachedTime = localStorage.getItem(cacheTimeKey);
-        
-        if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < cacheDuration) {
+        if (isCacheValid) {
             reposData = JSON.parse(cachedData);
         } else {
             const response = await fetch('https://api.github.com/users/ian20040409/repos?type=owner&sort=updated&per_page=100');
-            if (!response.ok) throw new Error('Unable to load projects');
+            if (!response.ok) throw new Error('API rate limit or network error');
             reposData = await response.json();
-            localStorage.setItem(cacheKey, JSON.stringify(reposData));
-            localStorage.setItem(cacheTimeKey, Date.now().toString());
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify(reposData));
+                localStorage.setItem(cacheTimeKey, Date.now().toString());
+            } catch (storageError) {
+                console.warn('Could not save to localStorage', storageError);
+            }
         }
-        
+    } catch (error) {
+        // Fallback to expired cache if available
+        if (cachedData) {
+            console.warn('Network failed, falling back to expired cache data.');
+            reposData = JSON.parse(cachedData);
+        } else {
+            if (status) {
+                status.innerHTML = 'Repositories could not be loaded right now. <a href="https://github.com/ian20040409?tab=repositories" target="_blank" rel="noopener" class="text-accent" style="color: inherit; text-decoration: underline;">View all public repositories on GitHub.</a>';
+                status.classList.add('is-error');
+            }
+            const heroStats = document.querySelector('.hero-stats');
+            if (heroStats) {
+                heroStats.style.display = 'none';
+            }
+            return;
+        }
+    }
+
+    if (reposData) {
         publicProjects = reposData.filter(repo => !repo.fork && repo.name.toLowerCase() !== 'fork');
         updateGitHubStats();
         initializeCategoryFilters();
         populateLanguageFilter();
         renderProjects();
-    } catch (error) {
-        if (status) {
-            status.innerHTML = 'Repositories could not be loaded right now. <a href="https://github.com/ian20040409?tab=repositories" target="_blank" rel="noopener" class="text-accent" style="color: inherit; text-decoration: underline;">View all public repositories on GitHub.</a>';
-            status.classList.add('is-error');
-        }
-        const heroStats = document.querySelector('.hero-stats');
-        if (heroStats) {
-            heroStats.style.display = 'none';
-        }
     }
 }
 

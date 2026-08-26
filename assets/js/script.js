@@ -34,29 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!toggle) return;
 
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        const savedTheme = localStorage.getItem('theme');
-        const initialTheme = savedTheme || (mediaQuery.matches ? 'dark' : 'light');
         
-        setTheme(initialTheme, false);
+        // Mode can be 'auto', 'light', or 'dark'
+        let currentMode = localStorage.getItem('theme') || 'auto';
 
-        toggle.addEventListener('click', () => {
-            const currentTheme = root.getAttribute('data-bs-theme');
-            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', nextTheme);
-            setTheme(nextTheme, true);
-        });
-
-        // Listen for OS system theme changes
-        if (mediaQuery.addEventListener) {
-            mediaQuery.addEventListener('change', e => {
-                if (!localStorage.getItem('theme')) {
-                    setTheme(e.matches ? 'dark' : 'light', true);
-                }
-            });
+        function getEffectiveTheme(mode) {
+            if (mode === 'auto') {
+                return mediaQuery.matches ? 'dark' : 'light';
+            }
+            return mode;
         }
 
-        function setTheme(theme, withTransition = false) {
-            const isDark = theme === 'dark';
+        function applyTheme(mode, withTransition = false) {
+            const effectiveTheme = getEffectiveTheme(mode);
+            const isDark = effectiveTheme === 'dark';
 
             if (withTransition) {
                 document.body.classList.add('theme-transition');
@@ -65,16 +56,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 350);
             }
 
-            root.setAttribute('data-bs-theme', isDark ? 'dark' : 'light');
-            toggle.innerHTML = `<i class="bi ${isDark ? 'bi-sun-fill' : 'bi-moon-fill'}" aria-hidden="true"></i>`;
-            toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-            toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            root.setAttribute('data-bs-theme', effectiveTheme);
+
+            // Icon and title indicating current mode & next action
+            let iconClass = 'bi-circle-half';
+            let titleText = 'Theme: System (Click to switch to Light mode)';
+
+            if (mode === 'light') {
+                iconClass = 'bi-sun-fill';
+                titleText = 'Theme: Light (Click to switch to Dark mode)';
+            } else if (mode === 'dark') {
+                iconClass = 'bi-moon-fill';
+                titleText = 'Theme: Dark (Click to switch to System)';
+            }
+
+            toggle.innerHTML = `<i class="bi ${iconClass}" aria-hidden="true"></i>`;
+            toggle.setAttribute('aria-label', titleText);
+            toggle.setAttribute('title', titleText);
 
             // Dynamically update contribution graph base color
             if (graphImg) {
                 const accentColor = isDark ? '2dd4bf' : '0d9488';
                 graphImg.src = `https://ghchart.rshah.org/${accentColor}/ian20040409`;
             }
+        }
+
+        // Initialize theme on load
+        applyTheme(currentMode, false);
+
+        // Toggle order: auto -> light -> dark -> auto
+        toggle.addEventListener('click', () => {
+            if (currentMode === 'auto') {
+                currentMode = 'light';
+                localStorage.setItem('theme', 'light');
+            } else if (currentMode === 'light') {
+                currentMode = 'dark';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                currentMode = 'auto';
+                localStorage.removeItem('theme'); // or localStorage.setItem('theme', 'auto');
+            }
+            applyTheme(currentMode, true);
+        });
+
+        // Listen for OS system theme changes
+        if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener('change', () => {
+                if (currentMode === 'auto') {
+                    applyTheme('auto', true);
+                }
+            });
         }
     }
 

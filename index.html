@@ -14,14 +14,14 @@
     <link rel="icon" type="image/png" href="https://github.com/ian20040409.png">
     <link rel="apple-touch-icon" href="https://github.com/ian20040409.png">
     
-    <!-- Anti-FOUC Theme Script: applies dark mode instantly before DOM render -->
+    <!-- Anti-FOUC Theme Script: applies theme mode instantly before DOM render -->
     <script>
         (function() {
             try {
-                const saved = localStorage.getItem('theme');
+                const saved = localStorage.getItem('theme'); // 'auto', 'light', 'dark', or null
                 const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = saved ? saved : (prefersDark ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-bs-theme', theme);
+                const effectiveTheme = (!saved || saved === 'auto') ? (prefersDark ? 'dark' : 'light') : saved;
+                document.documentElement.setAttribute('data-bs-theme', effectiveTheme);
             } catch (e) {}
         })();
     </script>
@@ -49,8 +49,8 @@
                 GitHub
             </a>
         </div>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-            <i class="bi bi-moon-fill" aria-hidden="true"></i>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme: System (Click to switch to Light mode)" title="Theme: System (Click to switch to Light mode)">
+            <i class="bi bi-circle-half" aria-hidden="true"></i>
         </button>
     </nav>
 

@@ -1,8 +1,7 @@
-const CACHE_NAME = 'ian-portfolio-v1';
+const CACHE_NAME = 'ian-portfolio-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/style.css',
   '/assets/js/script.js',
   '/manifest.json'
 ];
@@ -36,6 +35,10 @@ self.addEventListener('fetch', (event) => {
   
   if (event.request.url.includes('api.github.com')) {
     return; // Handled by frontend localStorage caching to prevent rate limits
+  }
+
+  if (event.request.url.endsWith('.css')) {
+    return; // Do not cache CSS files to ensure style updates are immediate
   }
 
   event.respondWith(

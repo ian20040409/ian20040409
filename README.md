@@ -23,16 +23,10 @@
 
 ### 📊 GitHub Stats
 
-<table>
-  <tr>
-    <td align="center" style="border: none;">
-      <img src="https://github-readme-stats.vercel.app/api?username=ian20040409&show_icons=true&theme=radical&hide_border=true&count_private=true" alt="Ian's GitHub Stats" />
-    </td>
-    <td align="center" style="border: none;">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ian20040409&layout=compact&theme=radical&hide_border=true&langs_count=6" alt="Top Languages" />
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://github-stats-extended.vercel.app/api?username=ian20040409&show_icons=true&theme=radical&hide_border=true&count_private=true" alt="Ian's GitHub Stats" />
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=ian20040409&layout=compact&theme=radical&hide_border=true&langs_count=6" alt="Top Languages" />
+</p>
 
 ### 🎯 Current Vibe
 
